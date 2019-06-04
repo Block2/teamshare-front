@@ -30,9 +30,9 @@ const SYS_DEPLOY = process.env.ENV_D;
 /** 发布模式配置，前后端采用集中部署，前端走Ngix服务模式,名称和前缀预定义 */
  const DEPOLY_API = "api/";
 /** debug模式的时候，可以任意改地址入口，允许统一改，也允许单独改 */
- const DEBUGAPI = "http://127.0.0.1:7001/mbzsk/";
+ const DEBUGAPI = "http://127.0.0.1:8888/teamshare/";
  /** 测试模式，前后端可以分开部署,允许统一改，也允许单独改*/
- const TESTAPI = "http://172.16.0.121:7001/mbzsk/api/";//服务器
+ const TESTAPI = "http://172.16.0.121:8888/teamshare/";//服务器
  /** 服务前缀*/
 let baseUrl=debugMod ? DEBUGAPI : TESTAPI;//服务器
 /** npm run deploy 的时候，表示真正发布的时候，和Nginx一并部署*/
@@ -44,31 +44,26 @@ const url = {
   //注册机构模块接口
 
   tmodule:{
-    getAllModules:baseUrl + "module/getAllModules"
+    getAllModules:baseUrl + "module/getAllModules",
+    insertModule:baseUrl + "module/insertModule",
+    deleteModuleById:baseUrl + "module/deleteModuleById",
+    updateModule:baseUrl + "module/updateModule"
   },
   mcolumn:{
-
+    getColumnById:baseUrl + "column/getColumnById",
+    getColumnsByTmid:baseUrl + "column/getColumnsByTmid",
+    updateColumn:baseUrl + "column/updateColumn",
+    deleteColumnById:baseUrl + "column/deleteColumnById",
+    insertColumn:baseUrl + "column/insertColumn"
   },
 
   article:{
-
+    insertArticle:baseUrl + "article/insertArticle",
+    getArticleById:baseUrl + "article/getArticleById",
+    updateArticle:baseUrl + "article/updateArticle",
+    deleteArticle:baseUrl + "article/deleteArticle",
+    getArticleByMcid:baseUrl + "article/getArticleByMcid"
   },
-
-  common: {
-    getBaseCode:baseUrl + "common/getBaseCode",
-    getMenuID:baseUrl + "common/getMenuID",
-    getDiseDic: baseUrl + "common/getDiseDic", //获取疾病目录
-    getCityList: baseUrl + "common/getCityList", //获取各省市县及其邮编列表
-    getDataDictionaryById: baseUrl + "common/getDataDictionaryById",//根据id获取字典数据列表
-    getOrgmembersById: baseUrl + "common/getOrgmembersById",//根据机构代码获取机构人员列表
-    getParaList: baseUrl + "common/getParaList", //获取当前机构系统参数列表信息
-    getOrgPara: baseUrl + "common/getOrgPara", //获取当前机构系统参数信息
-    getUserInfo:baseUrl + "common/getUserInfo",//获取登录用户新
-    getAreaCodeList:baseUrl +"common/getAreaCodeList",//获取行政区划列表
-    getDeptList:baseUrl +"common/getDeptList",//获取行政区划列表
-    getSysConfigById:baseUrl +"common/getSysConfigById",//根据id查询系统配置
-  },
-
 
 };
 axios.interceptors.request.use((config) => {
