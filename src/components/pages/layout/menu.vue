@@ -3,7 +3,7 @@
     <el-row>
       <el-col :span="24">
         <el-menu
-          :default-active="activeIndex" 
+          :default-active="activeIndex"
           router
           active-text-color="#117af1"
           @select="handleSelect"
@@ -63,7 +63,8 @@
 </template>
 
 <script>
-export default {
+
+  export default {
   data() {
     return {
       navList1:[
@@ -104,7 +105,7 @@ export default {
     })
   },
   mounted() {
-    
+
   },
   beforeDestroy() {
     this.$bus.$off('getRouterLine');

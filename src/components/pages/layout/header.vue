@@ -1,29 +1,41 @@
 <template>
-  <div class="header">
-    <div class="inline-block cursor-p header-logo ml20 mr20">团队协作共享平台</div>
-    <div class="inline-block cursor-p ml20 mr20 header-nav" @click="selectRouter(1)">前台规范</div>
-    <div class="inline-block cursor-p ml20 mr20 header-nav" @click="selectRouter(2)">后端</div>
-    <div class="inline-block cursor-p ml20 mr20 header-nav" @click="selectRouter(3)">接口规范</div>
-  </div>
+
+    <div class="header">
+      <div class="inline-block cursor-p header-logo ml20 mr20">团队协作共享平台</div>
+      <div class="inline-block cursor-p ml20 mr20 header-nav" v-for="module in modules" @click="selectRouter(module)">{{module.tmname}}</div>
+    </div>
+
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      msg: "",
-    };
-  },
-  mounted() {
-    
-  },
-  methods: {
-    selectRouter(val) {
-      let params = val;
-      this.$bus.$emit('getRouterLine',params);
+  import tmoudle from 'app/module/api'
+  export default {
+    data() {
+      return {
+        modules:[],
+        msg: "",
+      };
+    },
+
+    created(){
+      console.log(tmodule);
+        tmodule.getAllModules(data=>{
+          console.log('data',data);
+          this.modules = data.data.MODULE_LIST;
+        });
+
+
+    },
+    mounted() {
+
+    },
+    methods: {
+      selectRouter(val) {
+        let params = val;
+        this.$bus.$emit('getRouterLine',params);
+      }
     }
-  }
-};
+  };
 </script>
 
 
