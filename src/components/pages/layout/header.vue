@@ -2,13 +2,13 @@
 
     <div class="header">
       <div class="inline-block cursor-p header-logo ml20 mr20">团队协作共享平台</div>
-      <div class="inline-block cursor-p ml20 mr20 header-nav" v-for="module in modules" @click="selectRouter(module)">{{module.tmname}}</div>
+      <!-- <div class="inline-block cursor-p ml20 mr20 header-nav" v-for="module in modules" @click="selectRouter(module)">{{module.tmname}}</div> -->
     </div>
 
 </template>
 
 <script>
-  import tmoudle from 'app/module/api'
+  import store from '@/store/api'
   export default {
     data() {
       return {
@@ -18,11 +18,11 @@
     },
 
     created(){
-      console.log(tmodule);
-        tmodule.getAllModules(data=>{
-          console.log('data',data);
-          this.modules = data.data.MODULE_LIST;
-        });
+       console.log(store)
+        // tmodule.getAllModules(data=>{
+        //   console.log('data',data);
+        //   this.modules = data.data.MODULE_LIST;
+        // });
 
 
     },

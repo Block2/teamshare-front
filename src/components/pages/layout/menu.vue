@@ -3,13 +3,14 @@
     <el-row>
       <el-col :span="24">
         <el-menu
-          :default-active="activeIndex"
-          router
+          :default-active="$route.path" 
+          :router="true"
+          class="el-menu-vertical-demo"
           active-text-color="#117af1"
           @select="handleSelect"
           @open="handleOpen"
           @close="handleClose">
-          <el-menu-item v-for="(item, i) in navList" :key="i" :index="item.name">
+          <el-menu-item v-for="(item, i) in navList" route :key="i" :index="item.path">
             <i class="el-icon-document"></i>
             <span slot="title">{{item.navItem}}</span>
           </el-menu-item>
@@ -68,29 +69,32 @@
   data() {
     return {
       navList1:[
-        {name:'navCss',navItem:'Css'},
-        {name:'navVue',navItem:'Vue'},
-        {name:'standCss',navItem:'Css规范'},
-        {name:'standVue',navItem:'Vue规范'}
+        {name:'navCss', path:'/navCss', navItem:'Css'},
+        {name:'navVue', path:'/navVue', navItem:'Vue'},
+        {name:'standCss', path:'/standCss', navItem:'Css规范'},
+        {name:'standVue', path:'/standVue', navItem:'Vue规范'}
       ],
       navList2:[
-        {name:'oralJava',navItem:'Java'},
-        {name:'oralSpring',navItem:'Spring'}
+        {name:'oralJava', path:'/oralJava', navItem:'Java'},
+        {name:'oralSpring', path:'/oralSpring', navItem:'Spring'}
       ],
       navList3:[
-        {name:'jieKou',navItem:'接口'},
-        {name:'wenDang',navItem:'文档'}
+        {name:'jieKou', path:'/jieKou', navItem:'接口'},
+        {name:'wenDang', path:'/wenDang', navItem:'文档'}
       ],
       navList:[
-        {name:'navCss',navItem:'Css'},
-        {name:'navVue',navItem:'Vue'},
-        {name:'standCss',navItem:'Css规范'},
-        {name:'standVue',navItem:'Vue规范'}
+        {name:'navCss', path:'/navCss', navItem:'Css'},
+        {name:'navVue', path:'/navVue', navItem:'Vue'},
+        {name:'standCss', path:'/standCss', navItem:'Css规范'},
+        {name:'standVue', path:'/standVue', navItem:'Vue规范'}
       ],
-      activeIndex:'navCss'
+      activeIndex:''
     };
   },
   created() {
+    this.$router.push({name: 'navCss'});
+  },
+  mounted() {
     this.$bus.$on('getRouterLine',(msg) => {
         if(msg == 1){//代码走读
           this.navList = this.navList1;
@@ -103,9 +107,6 @@
           this.$router.push({name: 'jieKou'});
         }
     })
-  },
-  mounted() {
-
   },
   beforeDestroy() {
     this.$bus.$off('getRouterLine');
@@ -123,7 +124,9 @@
         // console.log(key, keyPath);
       },
       handleSelect(key, keyPath) {
-        this.activeIndex = key;
+        // this.activeIndex = key;
+        // this.$router.push({path: key});
+        // console.log(key, keyPath);
       }
   }
 };
@@ -132,10 +135,10 @@
 
 <style lang="less" scoped>
 .menu {
-  // .el-menu--horizontal>.el-menu-item.is-active {
-  //   border-bottom: 0px solid #409EFF;
-  //   color: #409EFF;
-  // }
+  .el-menu-item.is-active {
+    color: #409EFF;
+    // background-color: #409EFF;
+  }
 }
 
 </style>

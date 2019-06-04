@@ -12,30 +12,30 @@
  * @Last Modified time: 2018-11-16 10:23:30
  */
 
-const config = require('../../../config');
+const config = require('../../config');
 const axios = require('axios');
 import {Loading} from 'element-ui'
 // 设置跨域带鉴权支持
 axios.defaults.withCredentials = true;
 //是否进行本地调试
 const debugMod = true;
-// //是否进行通信加密
-// const ENCRYPTION_FLAG = false;
-// /** 发布部署模式，动态读取构建命令 */
-// const SYS_DEPLOY = process.env.ENV_D;
-// //本地服务前缀
-//  const mockUrl = process.env.NODE_ENV === 'production' ?
-//   config.build.assetsPublicPath + config.build.assetsSubDirectory :
-//    config.dev.assetsPublicPath + config.dev.assetsSubDirectory;
-// /** 发布模式配置，前后端采用集中部署，前端走Ngix服务模式,名称和前缀预定义 */
-//  const DEPOLY_API = "api/";
-// /** debug模式的时候，可以任意改地址入口，允许统一改，也允许单独改 */
-//  const DEBUGAPI = "http://127.0.0.1:7001/mbzsk/";
-//  /** 测试模式，前后端可以分开部署,允许统一改，也允许单独改*/
-//  const TESTAPI = "http://172.16.0.121:7001/mbzsk/api/";//服务器
-//  /** 服务前缀*/
-// let baseUrl=debugMod ? DEBUGAPI : TESTAPI;//服务器
-// /** npm run deploy 的时候，表示真正发布的时候，和Nginx一并部署*/
+//是否进行通信加密
+const ENCRYPTION_FLAG = false;
+/** 发布部署模式，动态读取构建命令 */
+const SYS_DEPLOY = process.env.ENV_D;
+//本地服务前缀
+ const mockUrl = process.env.NODE_ENV === 'production' ?
+  config.build.assetsPublicPath + config.build.assetsSubDirectory :
+   config.dev.assetsPublicPath + config.dev.assetsSubDirectory;
+/** 发布模式配置，前后端采用集中部署，前端走Ngix服务模式,名称和前缀预定义 */
+ const DEPOLY_API = "api/";
+/** debug模式的时候，可以任意改地址入口，允许统一改，也允许单独改 */
+ const DEBUGAPI = "http://127.0.0.1:7001/mbzsk/";
+ /** 测试模式，前后端可以分开部署,允许统一改，也允许单独改*/
+ const TESTAPI = "http://172.16.0.121:7001/mbzsk/api/";//服务器
+ /** 服务前缀*/
+let baseUrl=debugMod ? DEBUGAPI : TESTAPI;//服务器
+/** npm run deploy 的时候，表示真正发布的时候，和Nginx一并部署*/
 baseUrl = SYS_DEPLOY ? DEPOLY_API : baseUrl;
 
 const url = {
