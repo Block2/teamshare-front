@@ -15,21 +15,21 @@ export default {
   },
 
   insertModule(params,cb) {
-    return api.post(api.url.tmodule.insertModule)
+    return api.post(api.url.tmodule.insertModule, params)
       .then(data => {
         cb(data);
       });
   },
 
   deleteModuleById(params,cb) {
-    return api.post(api.url.tmodule.deleteModuleById)
+    return api.post(api.url.tmodule.deleteModuleById, params)
       .then(data => {
         cb(data);
       });
   },
 
   updateModule(params,cb) {
-    return api.post(api.url.tmodule.updateModule)
+    return api.post(api.url.tmodule.updateModule, params)
       .then(data => {
         cb(data);
       });

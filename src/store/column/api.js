@@ -8,35 +8,35 @@ import api from '../api'
 export default {
 
   getColumnById(params,cb) {
-    return api.post(api.url.column.getColumnById)
+    return api.post(api.url.mcolumn.getColumnById, params)
       .then(data => {
         cb(data);
       });
   },
 
   getColumnsByTmid(params,cb) {
-    return api.post(api.url.column.getColumnsByTmid)
+    return api.post(api.url.mcolumn.getColumnsByTmid, params)
       .then(data => {
         cb(data);
       });
   },
 
   updateColumn(params,cb) {
-    return api.post(api.url.column.updateColumn)
+    return api.post(api.url.mcolumn.updateColumn, params)
       .then(data => {
         cb(data);
       });
   },
 
   deleteColumnById(params,cb) {
-    return api.post(api.url.column.deleteColumnById)
+    return api.post(api.url.mcolumn.deleteColumnById, params)
       .then(data => {
         cb(data);
       });
   },
 
   insertColumn(params,cb) {
-    return api.post(api.url.column.insertColumn)
+    return api.post(api.url.mcolumn.insertColumn, params)
       .then(data => {
         cb(data);
       });

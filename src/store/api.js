@@ -74,7 +74,7 @@ axios.interceptors.request.use((config) => {
     config.headers['Authorization']=jwt;//让每个请求都携带token
   }
   //这里可以加一些交互动作，比如来个进度条开始效果
-  loadingOpen();
+  // loadingOpen();
   return config;
 }, error => {
   return Promise.reject(error);
@@ -90,36 +90,6 @@ axios.interceptors.response.use((res, a, b, c, d) => {
   return Promise.reject(error);
 });
 
-let loadingOpen = function () {
-  // if (window._config.loading_flag) {
-  // if (false) {
-    if (!window._config.data) {
-      window._config.data = {}
-    }
-    if (!window._config.data.loadingCount) {
-      window._config.data.loadingCount = 1;
-      window._config.data.loadingInstance = Loading.service({
-        text: '加载中...',
-      });
-    } else {
-      window._config.data.loadingCount++;
-    }
-  // }
-}
-
-// let loadingClose = function () {
-//   // if (window._config.loading_flag) {
-//   if (false) {
-//     if (!window._config.data) {
-//       return;
-//     }
-//     if (window._config.data.loadingCount) {
-//       if ((window._config.data.loadingCount-- == 1) && window._config.data.loadingInstance) {
-//         window._config.data.loadingInstance.close();
-//       }
-//     }
-//   }
-// }
 let catchErrorEvt = function (error) {
   switch (error.status) {
     case 404:
@@ -177,6 +147,7 @@ uploadInstance.withCredentials = true;
 export default {
   url,
   post: function (target, params = {}) {
+    console.log('params',params);
     return new Promise((resolve, reject) => {
       if (console.time) {
         console.time(target);

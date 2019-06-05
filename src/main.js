@@ -10,8 +10,8 @@ import vuex from 'vuex'
 Vue.config.productionTip = false
 
 const install = function (Vue) {
-  const Bus = new Vue()
-  Vue.prototype.$bus = Bus
+  const MenuVue = new Vue()
+  Vue.prototype.$menuVue = MenuVue
 }
 Vue.use(install)
 Vue.use(vuex)
