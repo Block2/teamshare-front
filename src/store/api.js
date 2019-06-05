@@ -19,6 +19,8 @@ import {Loading} from 'element-ui'
 axios.defaults.withCredentials = true;
 //是否进行本地调试
 const debugMod = true;
+//是否启动单点登陆
+const jwt = false;
 //是否进行通信加密
 const ENCRYPTION_FLAG = false;
 /** 发布部署模式，动态读取构建命令 */
@@ -30,13 +32,14 @@ const SYS_DEPLOY = process.env.ENV_D;
 /** 发布模式配置，前后端采用集中部署，前端走Ngix服务模式,名称和前缀预定义 */
  const DEPOLY_API = "api/";
 /** debug模式的时候，可以任意改地址入口，允许统一改，也允许单独改 */
- const DEBUGAPI = "http://127.0.0.1:8888/teamshare/";
+ const DEBUGAPI = "http://127.0.0.1:9090/teamshare/";
  /** 测试模式，前后端可以分开部署,允许统一改，也允许单独改*/
- const TESTAPI = "http://172.16.0.121:8888/teamshare/";//服务器
+ const TESTAPI = "http://172.16.0.121:9090/teamshare/";//服务器
  /** 服务前缀*/
 let baseUrl=debugMod ? DEBUGAPI : TESTAPI;//服务器
 /** npm run deploy 的时候，表示真正发布的时候，和Nginx一并部署*/
 baseUrl = SYS_DEPLOY ? DEPOLY_API : baseUrl;
+// baseUrl = "http://127.0.0.1:9090/teamshare/"
 
 const url = {
 
@@ -77,7 +80,6 @@ axios.interceptors.request.use((config) => {
   return Promise.reject(error);
 });
 axios.interceptors.response.use((res, a, b, c, d) => {
-  loadingClose();
   if (res.status >= 200 && res.status <= 300) {
     return res;
   }
@@ -89,7 +91,8 @@ axios.interceptors.response.use((res, a, b, c, d) => {
 });
 
 let loadingOpen = function () {
-  if (window._config.loading_flag) {
+  // if (window._config.loading_flag) {
+  // if (false) {
     if (!window._config.data) {
       window._config.data = {}
     }
@@ -101,21 +104,22 @@ let loadingOpen = function () {
     } else {
       window._config.data.loadingCount++;
     }
-  }
+  // }
 }
 
-let loadingClose = function () {
-  if (window._config.loading_flag) {
-    if (!window._config.data) {
-      return;
-    }
-    if (window._config.data.loadingCount) {
-      if ((window._config.data.loadingCount-- == 1) && window._config.data.loadingInstance) {
-        window._config.data.loadingInstance.close();
-      }
-    }
-  }
-}
+// let loadingClose = function () {
+//   // if (window._config.loading_flag) {
+//   if (false) {
+//     if (!window._config.data) {
+//       return;
+//     }
+//     if (window._config.data.loadingCount) {
+//       if ((window._config.data.loadingCount-- == 1) && window._config.data.loadingInstance) {
+//         window._config.data.loadingInstance.close();
+//       }
+//     }
+//   }
+// }
 let catchErrorEvt = function (error) {
   switch (error.status) {
     case 404:

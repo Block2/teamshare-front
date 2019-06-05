@@ -7,7 +7,7 @@ import api from '../api'
 
 export default {
 
-  getAllModules(params,cb) {
+  getAllModules(cb) {
     return api.post(api.url.tmodule.getAllModules)
       .then(data => {
         cb(data);
