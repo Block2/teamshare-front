@@ -6,7 +6,7 @@
 		<left-menu></left-menu>
     <!-- 内容 -->
 		<div class="content">
-			<router-view></router-view>
+			<router-view v-if="isRouterAlive"></router-view>
 		</div>
   </div>
 </template>
@@ -15,14 +15,29 @@
 import headerNav from './layout/header'
 import leftMenu from './layout/menu'
 export default {
+  name:'app',
+  provide(){
+    return {
+      reload:this.reload
+    }
+  },
   components: {
     headerNav,
     leftMenu
   },
   data() {
     return {
+      isRouterAlive:true,
       msg: "Welcome to Your Vue.js App"
     };
+  },
+  methods:{
+    reload(){
+      this.isRouterAlive = false;
+      this.$nextTick(function () {
+        this.isRouterAlive = true;
+      })
+    }
   }
 };
 </script>

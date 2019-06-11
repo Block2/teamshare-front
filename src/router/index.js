@@ -7,6 +7,10 @@ import '../assets/css/reset.css'
 import '../assets/css/common.css'
 
 import article from '@/components/pages/view/ArticleComp'
+import defaultArticle from '@/components/pages/view/DefaultArticle'
+import articleEdit from '@/components/pages/view/ArticleEdit'
+import columnAdd from '@/components/pages/view/ColumnAdd'
+
 
 Vue.use(Router)
 Vue.use(ElementUI)
@@ -18,16 +22,30 @@ export default new Router({
       name: 'index',
       component: index,
       children: [
+        // {
+        //   path: '/',
+        //   redirect: 'defaultArticle'
+        // },
         {
-          path: '/',
-          redirect: 'article'
+          path: 'default/:tmid/:mcid',
+          name: 'defaultArticle',
+          component: defaultArticle
         },
         {
           path: 'article/:aid',
           name: 'article',
           component: article
         },
-
+        {
+          path:'article/edit',
+          name: 'articleEdit',
+          component: articleEdit
+        },
+        {
+          path:'columnAdd/:tmid',
+          name:'columnAdd',
+          component:columnAdd
+        }
       ]
     }
   ]

@@ -1,8 +1,8 @@
 <template>
   <div class="menu">
+    <el-button v-on:click="addColumn">添加栏目</el-button>
     <el-row>
       <el-col :span="24">
-
         <el-menu
           :default-active="$route.path"
           :router="true"
@@ -18,7 +18,12 @@
             </template>
             <template v-if="item.ARTICLE_LIST">
               <el-menu-item-group>
-                <el-menu-item v-for="(article, j) in item.ARTICLE_LIST" :key="j" :index="article.AID">{{article.TITLE}}</el-menu-item>
+                <el-menu-item v-for="(article, j) in item.ARTICLE_LIST"
+                              :key="j"
+                              :index="article.AID"
+                              @click="clickArticle(item.COLUMN.TMID, item.COLUMN.MCID, article.AID)">
+                  {{article.TITLE}}
+                </el-menu-item>
               </el-menu-item-group>
             </template>
           </el-submenu>
@@ -32,50 +37,67 @@
 <script>
 
   import column from "@/store/column/api";
-  import ElMenu from "../../../../node_modules/element-ui/packages/menu/src/menu.vue";
+  import ElButton from "../../../../../../shenkang/skmbzs/skmbzs前端/node_modules/element-ui/packages/button/src/button.vue";
+
   export default {
-    components: {ElMenu},
+
+    components: {ElButton},
     data() {
-    return {
+      return {
 
-      columnList:[],
-      currentColumn:{},
-      columnMapList:[],
-      columnMap:{},
-      COLUMN:{},
-      ARTICLE_LIST:[],
-      TITLE:'',
-      AID:'',
-      MCNAME:'',
-      MCID:'',
-      activeIndex:''
-    };
-  },
-  created() {
-    this.$router.push({name: 'navCss'});
-  },
-  mounted() {
-    this.$menuVue.$on('getRouterLine',(msg) => {
+        columnList: [],
+        currentColumn: {},
+        columnMapList: [],
+        columnMap: {},
+        COLUMN: {},
+        ARTICLE_LIST: [],
+        TITLE: '',
+        MCNAME: '',
+        MCID: '',
+        TMID: '',
+        activeIndex: ''
+      };
+    },
+    created() {
 
-      column.getColumnsByTmid({
-        TMID: msg
-      }, data => {
-        console.log(data.COLUMN_LIST);
-        this.columnMapList = data.COLUMN_LIST;
-      });
-//      this.$router.push({path: 'column/' + msg});
+    },
+    mounted() {
+      this.$menuVue.$on('getRouterLine', (msg) => {
 
-    })
-  },
-  beforeDestroy() {
-    this.$menuVue.$off('getRouterLine');
-  },
-  watch:{
-    $route(to, from) {
-      this.activeIndex = to.name;
-    }
-  },
-  methods: {
+        this.TMID = msg;
+        column.getColumnsByTmid({
+          TMID: this.TMID
+        }, data => {
+          this.columnMapList = data.COLUMN_LIST;
+          if (Array.prototype.isPrototypeOf(this.columnMapList) && this.columnMapList.length !== 0) {
+            if (this.columnMapList[0].hasOwnProperty('ARTICLE_LIST')) {
+              let article = this.columnMapList[0].ARTICLE_LIST;
+              if (Array.prototype.isPrototypeOf(article) && article.length !== 0) {
+                console.log('menu aid getRouterLine route', this.$route);
+                this.$router.push({
+                  name: 'article',
+                  params: {tmid: this.TMID, mcid: this.columnMapList[0].COLUMN.MCID, aid: article[0].AID}
+                });
+              }
+            } else {
+              this.$router.push({
+                name: 'defaultArticle',
+                params: {tmid: this.TMID, mcid: this.columnMapList[0].COLUMN.MCID}
+              });
+            }
+          }
+        });
+      })
+    },
+    beforeDestroy() {
+      this.$menuVue.$off('getRouterLine');
+    },
+    watch: {
+      $route(to, from) {
+        this.activeIndex = to.name;
+      }
+    },
+    methods: {
       handleOpen(key, keyPath) {
         // console.log(key, keyPath);
       },
@@ -86,18 +108,29 @@
         // this.activeIndex = key;
         // this.$router.push({path: key});
         // console.log(key, keyPath);
-      }
-  }
-};
+      },
+
+      clickArticle(tmid, mcid, aid) {
+        this.TMID = tmid;
+        this.MCID = mcid;
+        this.$router.push({name: 'article', params: {tmid: this.TMID, mcid: this.MCID, aid: aid}});
+      },
+
+      addColumn(){
+        this.$router.push({name: 'columnAdd', params: {tmid: this.TMID}});
+      },
+    }
+  };
 </script>
 
 
 <style lang="less" scoped>
-.menu {
-  .el-menu-item.is-active {
-    color: #409EFF;
-    // background-color: #409EFF;
+  .menu {
+    .el-menu-item.is-active {
+      color: #409EFF;
+      // background-color: #409EFF;
+    }
+
   }
-}
 
 </style>

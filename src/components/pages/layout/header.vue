@@ -22,7 +22,9 @@
     created(){
          tmodule.getAllModules(data=>{
            this.modules = data.MODULE_LIST;
+           this.moduleRouter(this.modules[0]);
          });
+
     },
     mounted() {
 

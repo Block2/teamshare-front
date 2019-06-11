@@ -45,7 +45,9 @@ const url = {
 
   //本地访问地址
   //注册机构模块接口
-
+  common:{
+    getPathInfo:baseUrl + "common/getPathInfo"
+  },
   tmodule:{
     getAllModules:baseUrl + "module/getAllModules",
     insertModule:baseUrl + "module/insertModule",
@@ -147,7 +149,6 @@ uploadInstance.withCredentials = true;
 export default {
   url,
   post: function (target, params = {}) {
-    console.log('params',params);
     return new Promise((resolve, reject) => {
       if (console.time) {
         console.time(target);
