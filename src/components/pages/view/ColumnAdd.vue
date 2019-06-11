@@ -32,7 +32,7 @@
     methods: {
 
       addColumn(){
-        insertColumn({
+        column.insertColumn({
           TMID:this.TMID,
           MCNAME:this.MCNAME
         }, data=>{
