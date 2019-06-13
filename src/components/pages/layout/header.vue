@@ -1,16 +1,19 @@
 <template>
     <div class="header">
-      <div class="inline-block cursor-p header-logo ml20 mr20">团队协作共享平台</div>
-       <div class="inline-block cursor-p ml20 mr20 header-nav" v-for="module in modules" @click="moduleRouter(module)">{{module.TMNAME}}</div>
+      <div class="inline-block cursor-p header-logo ml20 mr20">
+        <img src="/static/img/logo.png" alt="logo"/>
+        <span>团队协作共享平台</span>
+      </div>
+      <div class="inline-block cursor-p ml20 mr20 header-nav" v-for="(module,index) in modules" :class="{activeModule:activeModuleIndex == index}" @click="moduleRouter(index,module)">{{module.TMNAME}}</div>
     </div>
 </template>
 
 <script>
   import tmodule from '@/store/module/api'
   export default {
-
     data() {
       return {
+        activeModuleIndex:'0',
         currentModule:{},
         modules:[],
         TMID:'',
@@ -22,7 +25,7 @@
     created(){
          tmodule.getAllModules(data=>{
            this.modules = data.MODULE_LIST;
-           this.moduleRouter(this.modules[0]);
+           this.moduleRouter(0, this.modules[0]);
          });
 
     },
@@ -30,7 +33,8 @@
 
     },
     methods: {
-      moduleRouter(val) {
+      moduleRouter(index , val) {
+        this.activeModuleIndex = index;
         this.currentModule = val;
         this.$menuVue.$emit('getRouterLine',this.currentModule.TMID);
       }
@@ -41,10 +45,12 @@
 
 <style lang="less" scoped>
 .header {
+  background: #7655C6;
   .inline-block {
-    height: 50px;
-    line-height: 50px;
-    font-size: 18px;
+    /*padding-top: 10px;*/
+    height:50px;
+    line-height: 20px;
+    font-size: 16px;
     color: #fff;
   }
   .header-logo {
@@ -52,10 +58,15 @@
   }
   .header-nav {
     width: 100px;
+    line-height: 50px;
     text-align: center;
     &:hover {
-      background-color: #0e5bcd;
+      background-color: #6243B9;
     }
   }
+  .activeModule{
+    background-color: #6243B9;
+  }
 }
+
 </style>

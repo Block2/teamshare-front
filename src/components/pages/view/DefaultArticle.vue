@@ -24,7 +24,6 @@
     },
 
     created() {
-      console.log('create', this.$route)
       this.TMID = this.$route.params.tmid;
       this.MCID = this.$route.params.mcid;
     },

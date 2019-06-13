@@ -9,8 +9,8 @@ import '../assets/css/common.css'
 import article from '@/components/pages/view/ArticleComp'
 import defaultArticle from '@/components/pages/view/DefaultArticle'
 import articleEdit from '@/components/pages/view/ArticleEdit'
-import columnAdd from '@/components/pages/view/ColumnAdd'
-
+import content from '@/components/pages/view/ContentTabs'
+import articles from '@/components/pages/view/ArticleList'
 
 Vue.use(Router)
 Vue.use(ElementUI)
@@ -37,14 +37,19 @@ export default new Router({
           component: article
         },
         {
-          path:'article/edit',
+          path:'article/edit/:mcid',
           name: 'articleEdit',
           component: articleEdit
         },
+        { // type： 1 文章列表页， 2 文章页， 3 编辑页
+          path:'content/:tmid/:mcid/:type',
+          name:'content',
+          component:content
+        },
         {
-          path:'columnAdd/:tmid',
-          name:'columnAdd',
-          component:columnAdd
+          path:'articlelist/:mcid',
+          name:'articles',
+          component:articles
         }
       ]
     }

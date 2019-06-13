@@ -102,6 +102,6 @@
 </script>
 <style lang="scss" rel="stylesheet/scss">
   #wangeditor {
-    width: 50rem;
+    margin:20px 20px;
   }
 </style>

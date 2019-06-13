@@ -21,7 +21,7 @@
 }
 
 .menu {
-    width: 190px;
+    width: 240px;
     height: calc(100vh - 50px);
     position: absolute;
     top: 50px;
@@ -31,10 +31,10 @@
 }
 
 .content {
-    width: calc(100vw - 220px);
+    width: calc(100vw - 270px);
     height: calc(100vh - 80px);
     background-color: #ffffff;
-    margin-left: 205px;
+    margin-left: 255px;
     margin-top: 15px;
     border: 1px solid #eeeeee;
 }

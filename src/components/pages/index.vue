@@ -52,6 +52,10 @@ export default {
 
     }
   }
+  .content{
+    overflow:auto;
+  }
+
 }
 </style>
 

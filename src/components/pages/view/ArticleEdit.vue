@@ -1,26 +1,26 @@
 <template>
   <el-container>
-    <i>tmid: {{TMID}}</i>
-    <i>mcid: {{MCID}}</i>
-    <i>aid: {{AID}}</i>
-    <el-col :span="24">
-      <i :span="8">文章标题:</i>
-      <el-input :span="16"
-        placeholder="TITLE"
-        v-model="TITLE">
-      </el-input>
-      <i :span="8">标签</i>
-      <el-input :span="16"
-                placeholder="TAG"
-                v-model="TAG">
-      </el-input>
-      <!--<div ref="editor" style="text-align:left"></div>-->
-      <editor :catchData = "getEditorContent"  :content ="editorContent"></editor>
-      <div>
-        <el-button v-on:click="clearContent">清空</el-button>
-        <el-button v-on:click="saveArticle">保存</el-button>
+
+    <el-col class="editArea">
+      <el-row type="flex" style="margin-top:10px">
+        <i style="font-style: normal;text-align:right; width:80px; margin:0 20px ">文章标题：</i>
+        <el-input style="margin-right: 20px " placeholder="请输入文章标题" v-model="TITLE"></el-input>
+      </el-row>
+      <el-row type="flex" style="margin-top:10px" >
+        <i style="font-style: normal;text-align:right; width:80px; margin:0 20px">标&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;签：</i>
+        <el-input style="margin-right: 20px " placeholder="多个标签用逗号隔开" v-model="TAG"></el-input>
+      </el-row>
+      <el-row type="flex">
+        <el-col :span="24">
+          <editor :catchData = "getEditorContent"  :content ="editorContent"></editor>
+        </el-col>
+      </el-row>
+      <div align="center">
+        <el-button style="margin:10px 20px" v-on:click="clearContent">清空</el-button>
+        <el-button type="primary" style="margin:10px 20px" v-on:click="saveArticle">保存</el-button>
       </div>
     </el-col>
+
   </el-container>
 </template>
 
@@ -30,12 +30,13 @@
   import common from "@/store/common/api"
   import editor from "./WangEditor"
   import ElButton from "../../../../../../new2/skmbzs/skmbzs前端/node_modules/element-ui/packages/button/src/button.vue";
+  import ElInput from "../../../../../../shenkang/skmbzs/skmbzs前端/node_modules/element-ui/packages/input/src/input.vue";
 
   export default {
 
 //    inject:['reload'],
     components: {
-      ElButton,
+      ElInput,
       editor:editor
     },
     data() {
@@ -44,7 +45,7 @@
         MCID: '',
         TMID:'',
         isActive: false,
-        TITLE: '文章标题',
+        TITLE: '',
         AUTHOR: 'admin',
         ACOMMENT: '',
         CREATETIME: '',
@@ -71,7 +72,7 @@
         this.AID = to.params.aid;
         this.MCID = to.params.mcid;
         this.TMID = to.params.tmid;
-        this.validate(newAid, this.MCID);
+        this.validate(this.AID, this.MCID);
         this.reDrawByAid(this.AID);
       },
 
@@ -161,7 +162,7 @@
 
 <style scoped>
 
-  .active {
-    display: none;
+  .editArea{
+    margin:20px 40px;
   }
 </style>

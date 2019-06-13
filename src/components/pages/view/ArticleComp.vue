@@ -1,19 +1,23 @@
 <template>
   <el-container>
+    <el-col class="article">
+      <el-row type="flex" justify="center">
+        <el-col :span="24" class="title">
+          {{TITLE}}
+        </el-col>
+      </el-row>
+      <el-row type="flex" style="margin-top:20px; font-size:12px;" justify="center">
+          <i  style="line-height: 19px;margin-right: 8px;" class="el-icon-user-solid">{{AUTHOR}}</i>
+          <i style="line-height: 19px;margin-right: 8px;">{{CREATETIME}}</i>
+          <el-tag size="mini" style="margin-right:8px;" v-for="tag in TAGS">{{tag}}</el-tag>
+      </el-row>
+      <el-row class="bodypart">
 
-    <i>tmid: {{TMID}}</i>
-    <i>mcid: {{MCID}}</i>
-    <i>aid: {{AID}}</i>
-    <el-button :span="8" align="right" @click="newArticle">新增</el-button>
-    <el-button :span="8" align="right" @click="modifyArticle">修改</el-button>
-    <el-button :span="8" align="right" @click="deleteArticle">删除</el-button>
-    <i>文章标题 : {{TITLE}}</i>
-    <i>作者 : {{AUTHOR}}</i>
-    <i>标签 : {{TAG}}</i>
-    <i>{{CREATETIME}}</i>
-    <div v-html="BODYPART">
-      {{BODYPART}}
-    </div>
+        <div v-html="BODYPART">
+          {{BODYPART}}
+        </div>
+      </el-row>
+    </el-col>
   </el-container>
 </template>
 
@@ -21,8 +25,16 @@
   import E from 'wangeditor'
   import article from "@/store/article/api"
   import common from "@/store/common/api"
+  import ElCol from "element-ui/packages/col/src/col";
 
   export default {
+
+    components: {ElCol},
+    props:{
+      tmidProp:String,
+      mcidProp:String,
+      aid:String
+    },
 
     data() {
       return {
@@ -31,10 +43,11 @@
         TMID:'',
         isActive: false,
         TITLE: '文章标题',
-        AUTHOR: 'admin',
+        AUTHOR: '',
         ACOMMENT: '',
         CREATETIME: '',
         TAG: '',
+        TAGS:[],
         BODYPART: '',
       };
     },
@@ -52,17 +65,12 @@
         this.AID = to.params.aid;
         this.MCID = to.params.mcid;
         this.TMID = to.params.tmid;
-//        this.reload();
+        this.validate(this.AID, this.MCID);
+        this.reDrawByAid(this.AID);
       },
-
-      AID(newAid, oldAid) {
-        this.validate(newAid, this.MCID);
-        this.reDrawByAid(this.newAid);
-      }
     },
 
     methods: {
-
       validate(aid, mcid){
         if(typeof(this.MCID) == "undefined" || typeof(this.TMID) == "undefined"){
           common.getPathInfo({
@@ -93,8 +101,11 @@
           }, data => {
             this.AID = data.AID;
             this.TITLE = data.TITLE;
-            this.TAG = data.TAG,
-              this.AUTHOR = data.AUTHOR;
+            this.TAG = data.TAG;
+            if(typeof(this.TAG) != "undefined" && this.TAG !=""){
+              this.TAGS = this.TAG.split(",");
+            }
+            this.AUTHOR = data.AUTHOR =="" || typeof(data.AUTHOR)=="undefined" ? '匿名' : data.AUTHOR;
             this.ACOMMENT = data.ACOMMENT;
             this.CREATETIME = data.CREATETIME;
             this.BODYPART = data.BODYPART;
@@ -131,7 +142,25 @@
 
 <style scoped>
 
-  .active {
-    display: none;
+  .article{
+    margin-left:100px;
+    margin-right:100px;
+    margin-bottom: 100px;
+  }
+
+  .title {
+    margin: 0 auto;
+    margin-top: 35px;
+    text-align:center;
+    font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;font-size: 34px;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .bodypart{
+    margin-top: 50px;
+  }
+  .el-scrollbar__wrap {
+    overflow-x: hidden;
   }
 </style>
