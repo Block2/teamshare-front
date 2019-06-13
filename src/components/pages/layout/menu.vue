@@ -87,6 +87,7 @@
         column.getColumnsByTmid({
           TMID: this.TMID
         }, data => {
+
           this.columnMapList = data.COLUMN_LIST;
           if (Array.prototype.isPrototypeOf(this.columnMapList) && this.columnMapList.length !== 0) {
             if (this.columnMapList[0].hasOwnProperty('children')) {
@@ -152,7 +153,9 @@
       },
 
       isDeleteAble(data){
-        return this.isArticleLeaf(data) || (!this.isArticleLeaf(data) && !data.hasOwnProperty('children'));
+        return this.isArticleLeaf(data)
+          || (!this.isArticleLeaf(data) && !data.hasOwnProperty('children')
+          || (!this.isArticleLeaf(data) && data.children == null));
       },
 
       routeArticle(data) {
