@@ -11,6 +11,7 @@ import defaultArticle from '@/components/pages/view/DefaultArticle'
 import articleEdit from '@/components/pages/view/ArticleEdit'
 import content from '@/components/pages/view/ContentTabs'
 import articles from '@/components/pages/view/ArticleList'
+import columnAdd from '@/components/pages/view/ColumnAdd'
 
 Vue.use(Router)
 Vue.use(ElementUI)
@@ -50,6 +51,10 @@ export default new Router({
           path:'articlelist/:mcid',
           name:'articles',
           component:articles
+        },{
+          path:'columnAdd/:tmid',
+          name:'columnAdd',
+          component:columnAdd
         }
       ]
     }

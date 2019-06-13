@@ -1,15 +1,8 @@
 <template>
-  <el-container>
-    <i>tmid:{{TMID}}</i>
-    <i>mcid:{{MCID}}</i>
-    <div> 当前栏目下没有文章,您可以新建一篇文章</div>
-
-    <el-button @click="newArticle">
-      新增文章
-    </el-button>
-
-
-  </el-container>
+  <div>
+    <div style="margin:0 auto; margin-top:230px; text-align: center;font-size:14px; font-weight:500;">当前栏目下没有文章,您可以新建一篇文章</div>
+    <div style="margin:0 auto; margin-top:20px; text-align: center;font-size:14px; font-weight:500;"><el-button v-on:click="newArticle">创建文章</el-button></div>
+  </div>
 
 </template>
 

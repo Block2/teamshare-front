@@ -80,8 +80,8 @@
       };
     },
     created() {
-
     },
+
     mounted() {
       this.$menuVue.$on('getRouterLine', (msg) => {
         this.TMID = msg;
@@ -105,12 +105,7 @@
               });
             }
           } else {
-            this.$message({
-              message: "当前模块下没有栏目，您可以新增一个栏目",
-              type: 'info'
-            });
-
-//            this.newColumn();
+            this.$router.push({name:'columnAdd',params:{tmid:this.TMID}});
           }
         });
       })
