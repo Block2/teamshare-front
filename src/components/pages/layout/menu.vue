@@ -209,12 +209,6 @@
       handleSelect(key, keyPath) {
       },
 
-      clickArticle(tmid, mcid, aid) {
-        this.TMID = tmid;
-        this.MCID = mcid;
-        this.$router.push({name: 'article', params: {tmid: this.TMID, mcid: this.MCID, aid: aid}});
-      },
-
       newColumn() {
         this.MCDialog = true;
       },
