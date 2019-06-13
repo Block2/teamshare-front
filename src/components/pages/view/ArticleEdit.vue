@@ -1,6 +1,5 @@
 <template>
   <el-container>
-
     <el-col class="editArea">
       <el-row type="flex" style="margin-top:10px">
         <i style="font-style: normal;text-align:right; width:80px; margin:0 20px ">文章标题：</i>

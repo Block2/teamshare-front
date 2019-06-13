@@ -25,11 +25,9 @@
   import E from 'wangeditor'
   import article from "@/store/article/api"
   import common from "@/store/common/api"
-  import ElCol from "element-ui/packages/col/src/col";
 
   export default {
 
-    components: {ElCol},
     props:{
       tmidProp:String,
       mcidProp:String,
@@ -103,7 +101,7 @@
             this.TITLE = data.TITLE;
             this.TAG = data.TAG;
             if(typeof(this.TAG) != "undefined" && this.TAG !=""){
-              this.TAGS = this.TAG.split(",");
+              this.TAGS = this.TAG.split(",|，");
             }
             this.AUTHOR = data.AUTHOR =="" || typeof(data.AUTHOR)=="undefined" ? '匿名' : data.AUTHOR;
             this.ACOMMENT = data.ACOMMENT;

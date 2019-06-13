@@ -34,7 +34,6 @@
     <div class="menu">
       <el-row>
         <el-col :span="24">
-
           <el-tree
             :data="columnMapList"
             :props="defaultProps"
@@ -54,7 +53,7 @@
           </el-tree>
         </el-col>
       </el-row>
-      <el-button size="mini" style="float:right; margin-right:20px" v-on:click="newColumn">添加栏目</el-button>
+      <el-button size="mini" style="float:right; margin-top:10px; margin-right:20px;" v-on:click="newColumn">添加栏目</el-button>
     </div>
   </el-container>
 </template>
@@ -286,7 +285,7 @@
   }
 
   .el-tree--highlight-current .el-tree-node.is-current > .el-tree-node__content {
-    background-color: #cccccc;
+    background-color: #dddddd;
   }
 
   .el-tree-node__content:hover {

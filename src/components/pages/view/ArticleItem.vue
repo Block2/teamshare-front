@@ -23,7 +23,6 @@
     },
     watch: {
       article () {
-        console.log('watch article',this.article)
         this.AID = this.article.AID;
         this.TITLE = this.article.TITLE;
         this.AUTHOR = this.article.AUTHOR == "" ? '匿名' : this.article.AUTHOR;

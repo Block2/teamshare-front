@@ -19,6 +19,7 @@
     created() {
       this.TMID = this.$route.params.tmid;
       this.MCID = this.$route.params.mcid;
+      this.validate(this.MCID);
     },
 
     watch: {
@@ -26,6 +27,7 @@
       $route(to, from) {
         this.MCID = to.params.mcid;
         this.TMID = to.params.tmid;
+        this.validate(this.MCID);
       },
     },
 
@@ -33,7 +35,29 @@
 
       newArticle() {
         this.$router.push({name: 'articleEdit', params: {tmid: this.TMID, mcid: this.MCID}});
-      }
+      },
+
+      validate(mcid){
+        if(typeof(this.TMID) == "undefined"){
+          common.getPathInfo({
+            MCID: mcid,
+          }, data=>{
+            if(!data.pathInfo.hasOwnProperty("MCID")){
+              this.$message({
+                message: data.pathInfo,
+                type: 'warning'
+              });
+
+            }else {
+              if(data.pathInfo.hasOwnProperty("AID")){
+                this.AID = data.pathInfo.AID;
+              }
+              this.MCID = data.pathInfo.MCID;
+              this.TMID = data.pathInfo.TMID;
+            }
+          });
+        }
+      },
     }
   }
 
