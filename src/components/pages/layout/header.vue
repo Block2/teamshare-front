@@ -1,8 +1,8 @@
 <template>
     <div class="header">
       <div class="inline-block cursor-p header-logo ml20 mr20">
-        <img src="/static/img/logo.png" alt="logo"/>
-        <span>团队协作共享平台</span>
+        <img style="width:29px" src="/static/img/logo.png" alt="logo"/>
+        <span style="margin-left:6px">团队协作共享平台</span>
       </div>
       <div class="inline-block cursor-p ml20 mr20 header-nav" v-for="(module,index) in modules" :class="{activeModule:activeModuleIndex == index}" @click="moduleRouter(index,module)">{{module.TMNAME}}</div>
     </div>
