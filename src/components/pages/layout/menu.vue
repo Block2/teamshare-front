@@ -211,6 +211,8 @@
 
       newColumn() {
         this.MCDialog = true;
+        this.MCNAME = '';
+        this.MCCOMMENT = '';
       },
 
       addArticle(mcid) {
