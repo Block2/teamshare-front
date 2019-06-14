@@ -41,13 +41,14 @@
         TMID:'',
         isActive: false,
         TITLE: '',
-        AUTHOR: 'admin',
+        AUTHOR: '',
         ACOMMENT: '',
         CREATETIME: '',
         TAG: '',
         editor: null,
         editorContent: '',
         BODYPART: '',
+        USERNAME:'',
       };
     },
 
@@ -88,6 +89,7 @@
           });
           this.$router.push({name:'login'});
         }
+        this.USERNAME = userInfo.USERNAME;
       },
 
       reDrawByAid(aid){
@@ -104,6 +106,14 @@
             this.BODYPART = data.BODYPART;
             this.editorContent = this.BODYPART;
           });
+        }else{
+          this.TITLE = '';
+          this.BODYPART = '';
+          this.editorContent = '';
+          this.CREATETIME = '';
+          this.TAG = '';
+          this.ACOMMENT = '';
+          this.AUTHOR = this.USERNAME;
         }
       },
 
