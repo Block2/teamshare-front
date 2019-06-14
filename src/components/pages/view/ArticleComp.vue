@@ -63,7 +63,7 @@
     watch: {
       $route(to, from) {
 
-        this.getAndValidateUserId(to.params.userId);
+        this.getAndValidateUser();
         this.AID = to.params.aid;
         this.MCID = to.params.mcid;
         this.TMID = to.params.tmid;

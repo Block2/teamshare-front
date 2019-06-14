@@ -1,39 +1,37 @@
 <template>
-        <div class="login-position" >
-            <div class="login-con">
-                <div class="login-top">
-                    <!--<div class="left l" :style="{backgroundImage:'url('+img+')'}"></div>-->
-                    <div class="right l">
-                        <div class="r-wrap">
-                            <h3>团队协作共享平台</h3>
-                            <div class="user">
-                                <i class="icon-login icon-u"></i>
-                                <input type="text" class="user-input" v-model="formLogin.loginName" placeholder="请输入用户名" id="loginName" >
-                            </div>
-                            <div class="password">
-                                <i class="icon-login icon-p"></i>
-                                <input type="password" class="psd-input" v-model="formLogin.password" placeholder="请输入密码" id="password" >
-                            </div>
-                            <div class="code clear" v-show="false">
-                                <div class="c-left l">
-                                    <i class="icon-login icon-c"></i>
-                                    <input id="code" type="text" class="code-input" placeholder="请输入验证码">
-                                </div>
-                                <div id="code-produce" class="c-right r"></div>
-                            </div>
-                            <p id="input-error" class="error" style="visibility:hidden  ">
-                                <i class="icon-e"></i>
-                                <span></span>
-                            </p>
-                            <div id="submit" @click="login" style="cursor:pointer">
-                                <span class="submit-btn btn1">登&nbsp;&nbsp;&nbsp;&nbsp;录</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-              <div class="copy"><span>卫宁健康&nbsp;&nbsp;&nbsp;&nbsp;沪ICP备17048553号</span></div>
+  <div class="teamshare">
+      <!--<div class="form login">-->
+          <!--<h3>团队协作共享平台</h3>-->
+          <!--<div>-->
+              <!--<input type="text" v-model="formLogin.loginName" placeholder="请输入用户名" id="loginName" >-->
+          <!--</div>-->
+          <!--<div>-->
+              <!--<input type="password" v-model="formLogin.password" placeholder="请输入密码" id="password" >-->
+          <!--</div>-->
+          <!--<div @click="login" style="cursor:pointer">-->
+              <!--<span>登&nbsp;&nbsp;&nbsp;&nbsp;录</span>-->
+          <!--</div>-->
+      <!--</div>-->
+      <!--<div class="copy"><span>卫宁健康&nbsp;&nbsp;&nbsp;&nbsp;沪ICP备17048553号</span></div>-->
+      <!--&lt;!&ndash; login 上面的替换过来就好 &ndash;&gt;-->
+      <div class="login">
+        <div class="login-body">
+          <div class="login-title">团队协作共享平台</div>
+            <div class="login-form">
+              <!--<el-row type="flex" style="margin-top:10px">-->
+              <div style="margin-top:20px;">
+                <i style="font-style: normal;text-align:right;width:60px;">用户名：</i>
+                <el-input style="width:160px;" placeholder="请输入用户名" v-model="formLogin.loginName"></el-input>
+              </div>
+              <div style="margin-top:20px;">
+                <i style="font-style: normal;text-align:right; width:60px;">密&nbsp;&nbsp;&nbsp;码：</i>
+                <el-input style="width:160px; " placeholder="请输入密码" type="password"  v-model="formLogin.password"></el-input>
+              </div>
             </div>
+          <div style="margin-top: 20px;"><el-button type="primary"  @click="login">登录</el-button></div>
         </div>
+      </div>
+  </div>
 </template>
 <script>
   import storage from '@/resource/script/localStorageUtil'
@@ -101,8 +99,41 @@
     },
   };
 </script>
-<style>
+
+<style lang="less" scoped>
+
+  .teamshare{
+    width:100%;
+    height:100vh;
+    background-image: url('/static/img/background-img.jpg');
+    background-size: cover;
+  }
+
+  .login {
+    width: 450px;
+    height: 300px;
+    margin: 0 auto;
+    padding-top:150px;
+
+    .login-body{
+      padding: 20px 0px;
+      background-color: rgba(255,255,255, 0.5);
+      margin: 0 auto;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      .login-title {
+        font-size: 20px;
+      }
+      .login-form {
+        margin-top:30px;
+        text-align: center;
+      }
+    }
+  }
 </style>
+
 
 
 

@@ -102,7 +102,6 @@
     font-size: 16px;
     color: #fff;
     float:right;
-    width:140px;
   }
   .activeModule{
     background-color: #6243B9;
