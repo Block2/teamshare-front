@@ -10,6 +10,7 @@ import article from '@/components/pages/view/ArticleComp'
 import defaultArticle from '@/components/pages/view/DefaultArticle'
 import articleEdit from '@/components/pages/view/ArticleEdit'
 import columnAdd from '@/components/pages/view/ColumnAdd'
+import login from '@/components/pages/view/Login'
 
 Vue.use(Router)
 Vue.use(ElementUI)
@@ -18,6 +19,11 @@ export default new Router({
   routes: [
     {
       path: '/',
+      name: 'login',
+      component: login
+    },
+    {
+      path: '/teamshare',
       name: 'index',
       component: index,
       children: [
@@ -37,9 +43,14 @@ export default new Router({
           component: articleEdit
         },
         {
-          path:'columnAdd/:tmid',
+          path:'column/add/:tmid',
           name:'columnAdd',
           component:columnAdd
+        },
+        {
+          path:'login',
+          name:'login',
+          component:login
         }
       ]
     }

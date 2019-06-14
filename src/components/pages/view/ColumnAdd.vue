@@ -1,7 +1,8 @@
 <template>
   <div class="column_add">
-    <div style="margin:0 auto; margin-top:230px; text-align: center;font-size:14px; font-weight:500;">当前模块下栏目为空，您可以新建一个栏目</div>
-    <div style="margin:0 auto; margin-top:20px; text-align: center;font-size:14px; font-weight:500;"><el-button v-on:click="MCDialog=true">新建栏目</el-button></div>
+    <div v-if="isEditable()" style="margin:0 auto; margin-top:230px; text-align: center;font-size:14px; font-weight:500;">当前模块下栏目为空，您可以新建一个栏目</div>
+    <div v-else style="margin:0 auto; margin-top:230px; text-align: center;font-size:14px; font-weight:500;">当前模块下栏目为空</div>
+    <div v-if="isEditable()" style="margin:0 auto; margin-top:20px; text-align: center;font-size:14px; font-weight:500;"><el-button  v-on:click="MCDialog=true">新建栏目</el-button></div>
     <el-dialog
       title="添加栏目"
       :visible.sync="MCDialog"
@@ -37,10 +38,14 @@
 <script>
 
   import column from "@/store/column/api"
+  import common from "@/store/common/api"
+
   export default {
 
     data() {
       return {
+        USERID:'',
+        readAndWriteAble:'',
         MCDialog:false,
         TMID:'',
         MCNAME:'',
@@ -49,16 +54,35 @@
     },
 
     created() {
+      this.getAndValidateUser();
       this.TMID = this.$route.params.tmid;
     },
 
     watch: {
       $route(to, from) {
         this.TMID = to.params.tmid;
+        this.getAndValidateUser();
       },
     },
 
     methods: {
+
+      getAndValidateUser(){
+        let userInfo = common.getAndValidateUser();
+        if(userInfo == null){
+          this.$message({
+            message: '请重新登陆',
+            type: 'warning'
+          });
+          this.$router.push({name:'login'});
+        }else{
+          this.readAndWriteRight = userInfo.readAndWriteRight;
+        }
+      },
+
+      isEditable(){
+        return this.readAndWriteRight == '3';
+      },
 
       cancel() {
         this.MCDialog = false;

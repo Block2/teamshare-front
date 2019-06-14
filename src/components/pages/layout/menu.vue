@@ -45,15 +45,15 @@
             <span class="tree-expand" @click="routeArticle(data)" slot-scope="{ node, data }">
               <span class="tree-label">{{ node.label.substring(0,14) }}</span>
               <span class="tree-btn">
-                <i class="el-icon-plus" v-if="!isArticleLeaf(data)" @click.stop="addArticle(data.id)"></i>
-                <i class="el-icon-edit" v-else @click.stop="editArticle(data.id)"></i>
-                <i class="el-icon-delete" v-if="isDeleteAble(data)" @click.stop="delNode(data)"></i>
+                <i class="el-icon-plus" v-if="!isArticleLeaf(data) && isEditable() " @click.stop="addArticle(data.id)"></i>
+                <i class="el-icon-edit" v-if="isArticleLeaf(data) && isEditable()" @click.stop="editArticle(data.id)"></i>
+                <i class="el-icon-delete" v-if="isDeleteAble(data) && isEditable()" @click.stop="delNode(data)"></i>
               </span>
             </span>
           </el-tree>
         </el-col>
       </el-row>
-      <el-button size="mini" style="float:right; margin-top:10px; margin-right:20px;" v-on:click="newColumn">添加栏目</el-button>
+      <el-button size="mini" v-if="isEditable()" style="float:right; margin-top:10px; margin-right:20px;" v-on:click="newColumn">添加栏目</el-button>
     </div>
   </el-container>
 </template>
@@ -62,6 +62,7 @@
 
   import column from "@/store/column/api";
   import article from "@/store/article/api";
+  import common from "@/store/common/api";
 
   export default {
     data() {
@@ -75,6 +76,8 @@
         MCCOMMENT: '',
         MCID: '',
         TMID: '',
+        USERID:'',
+        readAndWriteRight:'',
         MCDialog: false,
       };
     },
@@ -82,8 +85,9 @@
     },
 
     mounted() {
-      this.$menuVue.$on('getRouterLine', (msg) => {
-        this.TMID = msg;
+      this.$menuVue.$on('getRouterLine', (param) => {
+        this.TMID = param;
+        this.getAndValidateUser();
         column.getColumnsByTmid({
           TMID: this.TMID
         }, data => {
@@ -116,6 +120,19 @@
     watch: {},
     methods: {
 
+      getAndValidateUser(){
+        let userInfo = common.getAndValidateUser();
+        if(userInfo == null){
+          this.$message({
+            message: '请重新登陆',
+            type: 'warning'
+          });
+          this.$router.push({name:'login'});
+        }else{
+          this.readAndWriteRight = userInfo.readAndWriteRight;
+        }
+      },
+
       cancel() {
         this.MCDialog = false;
         this.MCNAME = '';
@@ -144,8 +161,12 @@
             type: type
           });
           this.MCDialog = false;
-          this.$menuVue.$emit('getRouterLine', this.TMID);
+          this.$menuVue.$emit('getRouterLine',this.TMID);
         });
+      },
+
+      isEditable(){
+        return this.readAndWriteRight == '3';
       },
 
       isArticleLeaf(data) {
@@ -162,12 +183,12 @@
         if (this.isArticleLeaf(data)) {
           this.$router.push({name: 'article', params: {aid: data.id}});
         } else if (!data.hasOwnProperty('children')) {
-          this.$router.push({name: 'defaultArticle', params: {tmid: this.TMID, mcid: data.id}});
+          this.$router.push({name: 'defaultArticle', params: {userId: this.USERID, tmid: this.TMID, mcid: data.id}});
         }
       },
 
       editArticle(aid) {
-        this.$router.push({name: 'articleEdit', params: {aid: aid}});
+        this.$router.push({name: 'articleEdit', params: {userId: this.USERID, aid: aid}});
       },
 
       delNode(nodeinfo) {
@@ -183,7 +204,7 @@
               message: data.IS_EXIST,
               type: type
             });
-            this.$menuVue.$emit('getRouterLine', this.TMID);
+            this.$menuVue.$emit('getRouterLine',this.TMID);
           });
         } else {
           column.deleteColumnById({
@@ -197,7 +218,7 @@
               message: data.IS_EXIST,
               type: type
             });
-            this.$menuVue.$emit('getRouterLine', this.TMID);
+            this.$menuVue.$emit('getRouterLine',this.TMID);
           });
         }
       },

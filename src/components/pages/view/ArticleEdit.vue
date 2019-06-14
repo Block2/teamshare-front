@@ -2,11 +2,11 @@
   <el-container>
     <el-col class="editArea">
       <el-row type="flex" style="margin-top:10px">
-        <i style="font-style: normal;text-align:right; width:80px; margin:0 20px ">文章标题：</i>
+        <i style="font-style: normal;text-align:right; width:84px; margin:0 20px ">文章标题：</i>
         <el-input style="margin-right: 20px " placeholder="请输入文章标题" v-model="TITLE"></el-input>
       </el-row>
       <el-row type="flex" style="margin-top:10px" >
-        <i style="font-style: normal;text-align:right; width:80px; margin:0 20px">标&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;签：</i>
+        <i style="font-style: normal;text-align:right; width:84px; margin:0 20px">标&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;签：</i>
         <el-input style="margin-right: 20px " placeholder="多个标签用逗号隔开" v-model="TAG"></el-input>
       </el-row>
       <el-row type="flex">
@@ -28,14 +28,10 @@
   import article from "@/store/article/api"
   import common from "@/store/common/api"
   import editor from "./WangEditor"
-  import ElButton from "../../../../../../new2/skmbzs/skmbzs前端/node_modules/element-ui/packages/button/src/button.vue";
-  import ElInput from "../../../../../../shenkang/skmbzs/skmbzs前端/node_modules/element-ui/packages/input/src/input.vue";
 
   export default {
 
-//    inject:['reload'],
     components: {
-      ElInput,
       editor:editor
     },
     data() {
@@ -56,6 +52,8 @@
     },
 
     created() {
+
+      this.getAndValidateUser();
       this.AID = this.$route.params.hasOwnProperty("aid") ? this.$route.params.aid : '';
       this.MCID = this.$route.params.mcid;
       this.TMID = this.$route.params.tmid;
@@ -67,7 +65,9 @@
     },
 
     watch: {
+
       $route(to, from) {
+        this.getAndValidateUser();
         this.AID = to.params.aid;
         this.MCID = to.params.mcid;
         this.TMID = to.params.tmid;
@@ -78,6 +78,17 @@
     },
 
     methods: {
+
+      getAndValidateUser(){
+        let userInfo = common.getAndValidateUser();
+        if(userInfo == null){
+          this.$message({
+            message: '请重新登陆',
+            type: 'warning'
+          });
+          this.$router.push({name:'login'});
+        }
+      },
 
       reDrawByAid(aid){
         if (typeof(aid) != "undefined") {

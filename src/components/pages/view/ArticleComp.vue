@@ -36,6 +36,7 @@
 
     data() {
       return {
+        USERID:'',
         AID:'',
         MCID:'',
         TMID:'',
@@ -51,6 +52,7 @@
     },
 
     created() {
+      common.getAndValidateUser();
       this.AID = this.$route.params.hasOwnProperty("aid") ? this.$route.params.aid : '';
       this.MCID = this.$route.params.mcid;
       this.TMID = this.$route.params.tmid;
@@ -60,6 +62,8 @@
 
     watch: {
       $route(to, from) {
+
+        this.getAndValidateUserId(to.params.userId);
         this.AID = to.params.aid;
         this.MCID = to.params.mcid;
         this.TMID = to.params.tmid;
@@ -69,6 +73,20 @@
     },
 
     methods: {
+
+      getAndValidateUser(){
+        let userInfo = common.getAndValidateUser();
+        if(userInfo == null){
+          this.$message({
+            message: '请重新登陆',
+            type: 'warning'
+          });
+          this.$router.push({name:'login'});
+        }else{
+          this.readAndWriteRight = userInfo.readAndWriteRight;
+        }
+      },
+
       validate(aid, mcid){
         if(typeof(this.MCID) == "undefined" || typeof(this.TMID) == "undefined"){
           common.getPathInfo({

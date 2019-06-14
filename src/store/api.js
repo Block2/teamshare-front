@@ -46,7 +46,9 @@ const url = {
   //本地访问地址
   //注册机构模块接口
   common:{
-    getPathInfo:baseUrl + "common/getPathInfo"
+    getPathInfo:baseUrl + "common/getPathInfo",
+    getUserInfo:baseUrl + "common/getUserInfo",
+    getUserInfoByUsesrId:baseUrl + "common/getUserInfoByUserId",
   },
   tmodule:{
     getAllModules:baseUrl + "module/getAllModules",
