@@ -7,11 +7,11 @@
       <div class="inline-block cursor-p ml20 mr20 header-nav" v-for="(module,index) in modules" :class="{activeModule:activeModuleIndex == index}" @click="moduleRouter(index,module)">{{module.TMNAME}}</div>
       <div class="inline-block header-right">
         <img style="width: 29px;" src="../../../assets/img/user.png" alt="loginOut"/>
-        <span>{{USERNAME}}</span>
-          <div class="inline-block loginOutIcon">
+        <span style="margin-right:10px">{{USERNAME}}</span>
+        <div class="inline-block loginOutIcon">
           <img src="../../../assets/img/loginOut.png" v-on:click="loginOut" alt="loginOut"/>
-          </div>
         </div>
+      </div>
     </div>
 </template>
 
@@ -110,7 +110,7 @@
   .loginOutIcon {
     margin: 12px 0;
     padding-left: 15px;
-    border-left: 1px solid rgb(57, 141, 181);
+    border-left: 1px solid rgb(141px, 141, 141);
     height: 26px;
     line-height: 26px;
     width: 36px;

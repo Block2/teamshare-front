@@ -43,17 +43,21 @@
             :expand-on-click-node="false"
           >
             <span class="tree-expand" @click="routeArticle(data)" slot-scope="{ node, data }">
-              <span class="tree-label">{{ node.label.substring(0,14) }}</span>
-              <span class="tree-btn">
-                <i class="el-icon-plus" v-if="!isArticleLeaf(data) && isEditable() " @click.stop="addArticle(data.id)"></i>
-                <i class="el-icon-edit" v-if="isArticleLeaf(data) && isEditable()" @click.stop="editArticle(data.id)"></i>
+              <span class="tree-label">{{ node.label.substring(0, 14) }}</span>
+              <span v-if="noSpecify(data)" class="tree-btn">
+                <i class="el-icon-plus" v-if="!isArticleLeaf(data) && isEditable() "
+                   @click.stop="addArticle(data.id)"></i>
+                <i class="el-icon-edit" v-if="isArticleLeaf(data) && isEditable()"
+                   @click.stop="editArticle(data.id)"></i>
                 <i class="el-icon-delete" v-if="isDeleteAble(data) && isEditable()" @click.stop="delNode(data)"></i>
               </span>
             </span>
           </el-tree>
         </el-col>
       </el-row>
-      <el-button size="mini" v-if="isEditable()" style="float:right; margin-top:10px; margin-right:20px;" v-on:click="newColumn">添加栏目</el-button>
+      <el-button size="mini" v-if="isEditable()" style="float:right; margin-top:10px; margin-right:20px;"
+                 v-on:click="newColumn">添加栏目
+      </el-button>
     </div>
   </el-container>
 </template>
@@ -76,8 +80,7 @@
         MCCOMMENT: '',
         MCID: '',
         TMID: '',
-        USERID:'',
-        readAndWriteRight:'',
+        readAndWriteRight: '',
         MCDialog: false,
       };
     },
@@ -94,7 +97,12 @@
 
           this.columnMapList = data.COLUMN_LIST;
           if (Array.prototype.isPrototypeOf(this.columnMapList) && this.columnMapList.length !== 0) {
-            if (this.columnMapList[0].hasOwnProperty('children')) {
+            if (this.columnMapList[0].hasOwnProperty('route_path')) {
+              this.$router.push({
+                name: 'customWebPage',
+                params: {url: this.columnMapList[0].route_path}
+              });
+            } else if (this.columnMapList[0].hasOwnProperty('children')) {
               let articles = this.columnMapList[0].children;
               if (Array.prototype.isPrototypeOf(articles) && articles.length !== 0) {
                 this.$router.push({
@@ -109,7 +117,7 @@
               });
             }
           } else {
-            this.$router.push({name:'columnAdd',params:{tmid:this.TMID}});
+            this.$router.push({name: 'columnAdd', params: {tmid: this.TMID}});
           }
         });
       })
@@ -120,15 +128,15 @@
     watch: {},
     methods: {
 
-      getAndValidateUser(){
+      getAndValidateUser() {
         let userInfo = common.getAndValidateUser();
-        if(userInfo == null){
+        if (userInfo == null) {
           this.$message({
             message: '请重新登陆',
             type: 'warning'
           });
-          this.$router.push({name:'login'});
-        }else{
+          this.$router.push({name: 'login'});
+        } else {
           this.readAndWriteRight = userInfo.readAndWriteRight;
         }
       },
@@ -161,11 +169,15 @@
             type: type
           });
           this.MCDialog = false;
-          this.$menuVue.$emit('getRouterLine',this.TMID);
+          this.$menuVue.$emit('getRouterLine', this.TMID);
         });
       },
 
-      isEditable(){
+      noSpecify(data) {
+        return !data.hasOwnProperty('route_path')
+      },
+
+      isEditable() {
         return this.readAndWriteRight == '3';
       },
 
@@ -173,22 +185,24 @@
         return data.hasOwnProperty('AID');
       },
 
-      isDeleteAble(data){
+      isDeleteAble(data) {
         return this.isArticleLeaf(data)
           || (!this.isArticleLeaf(data) && !data.hasOwnProperty('children')
-          || (!this.isArticleLeaf(data) && data.children == null));
+            || (!this.isArticleLeaf(data) && data.children == null));
       },
 
       routeArticle(data) {
         if (this.isArticleLeaf(data)) {
           this.$router.push({name: 'article', params: {aid: data.id}});
+        } else if (data.hasOwnProperty('route_path')) {
+          this.$router.push({name: 'customWebPage', params: {url: data.route_path}});
         } else if (!data.hasOwnProperty('children')) {
-          this.$router.push({name: 'defaultArticle', params: {userId: this.USERID, tmid: this.TMID, mcid: data.id}});
+          this.$router.push({name: 'defaultArticle', params: {tmid: this.TMID, mcid: data.id}});
         }
       },
 
       editArticle(aid) {
-        this.$router.push({name: 'articleEdit', params: {userId: this.USERID, aid: aid}});
+        this.$router.push({name: 'articleEdit', params: {aid: aid}});
       },
 
       delNode(nodeinfo) {
@@ -204,7 +218,7 @@
               message: data.IS_EXIST,
               type: type
             });
-            this.$menuVue.$emit('getRouterLine',this.TMID);
+            this.$menuVue.$emit('getRouterLine', this.TMID);
           });
         } else {
           column.deleteColumnById({
@@ -218,7 +232,7 @@
               message: data.IS_EXIST,
               type: type
             });
-            this.$menuVue.$emit('getRouterLine',this.TMID);
+            this.$menuVue.$emit('getRouterLine', this.TMID);
           });
         }
       },
@@ -251,8 +265,9 @@
     text-align: left;
     background: #6243B9 !important;
   }
+
   .el-dialog__headerbtn .el-dialog__close {
-    display: none!important;
+    display: none !important;
   }
 
   .el-dialog__body {
@@ -265,8 +280,8 @@
   .el-dialog__title {
     line-height: 24px;
     font-size: 18px;
-    font-family:AlibabaSans-Regular;
-    font-weight:500;
+    font-family: AlibabaSans-Regular;
+    font-weight: 500;
     color: #ffffff;
   }
 
@@ -278,7 +293,7 @@
   }
 
   .el-textarea__inner {
-    line-height:1 !important;
+    line-height: 1 !important;
   }
 
   .tree-expand {

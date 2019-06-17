@@ -11,6 +11,7 @@ import defaultArticle from '@/components/pages/view/DefaultArticle'
 import articleEdit from '@/components/pages/view/ArticleEdit'
 import columnAdd from '@/components/pages/view/ColumnAdd'
 import login from '@/components/pages/view/Login'
+import customWebPage from '@/components/pages/view/CustomWebPage'
 
 Vue.use(Router)
 Vue.use(ElementUI)
@@ -51,6 +52,11 @@ export default new Router({
           path:'login',
           name:'login',
           component:login
+        },
+        {
+          path:'webPage/:url',
+          name:'customWebPage',
+          component:customWebPage
         }
       ]
     }

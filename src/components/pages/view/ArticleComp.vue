@@ -52,7 +52,7 @@
     },
 
     created() {
-      common.getAndValidateUser();
+      this.getAndValidateUser();
       this.AID = this.$route.params.hasOwnProperty("aid") ? this.$route.params.aid : '';
       this.MCID = this.$route.params.mcid;
       this.TMID = this.$route.params.tmid;
