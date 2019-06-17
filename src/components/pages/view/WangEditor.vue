@@ -104,4 +104,8 @@
   #wangeditor {
     margin:20px 20px;
   }
+  .w-e-toolbar{
+    flex-wrap:wrap;
+  }
+
 </style>

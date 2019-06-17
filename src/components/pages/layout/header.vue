@@ -1,15 +1,16 @@
 <template>
     <div class="header">
       <div class="inline-block cursor-p header-logo ml20 mr20">
-        <img style="width:29px" src="/static/img/logo.png" alt="logo"/>
+        <img style="width:29px" src="../../../assets/img/logo.png" alt="logo"/>
         <span style="margin-left:6px">团队协作共享平台</span>
       </div>
       <div class="inline-block cursor-p ml20 mr20 header-nav" v-for="(module,index) in modules" :class="{activeModule:activeModuleIndex == index}" @click="moduleRouter(index,module)">{{module.TMNAME}}</div>
       <div class="inline-block header-right">
-        <img style="width: 29px;" src="/static/img/user.png" alt="loginOut"/>
+        <!--<img style="width: 29px;" src="../../../assets/img/user.png" alt="loginOut"/>-->
+        <img style="width: 29px;" src="../../../assets/img/user.png" alt="loginOut"/>
         <span>{{USERNAME}}</span>
           <div class="inline-block loginOutIcon">
-          <img src="/static/img/loginOut.png" v-on:click="loginOut" alt="loginOut"/>
+          <img src="../../../assets/img/loginOut.png" v-on:click="loginOut" alt="loginOut"/>
           </div>
         </div>
     </div>

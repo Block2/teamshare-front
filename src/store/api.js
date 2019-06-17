@@ -32,9 +32,9 @@ const SYS_DEPLOY = process.env.ENV_D;
 /** 发布模式配置，前后端采用集中部署，前端走Ngix服务模式,名称和前缀预定义 */
  const DEPOLY_API = "api/";
 /** debug模式的时候，可以任意改地址入口，允许统一改，也允许单独改 */
- const DEBUGAPI = "http://127.0.0.1:9090/teamshare/";
+ const DEBUGAPI = "http://127.0.0.1:9000/teamshare/";
  /** 测试模式，前后端可以分开部署,允许统一改，也允许单独改*/
- const TESTAPI = "http://172.16.0.121:9090/teamshare/";//服务器
+ const TESTAPI = "http://172.16.0.121:9000/teamshare/";//服务器
  /** 服务前缀*/
 let baseUrl=debugMod ? DEBUGAPI : TESTAPI;//服务器
 /** npm run deploy 的时候，表示真正发布的时候，和Nginx一并部署*/

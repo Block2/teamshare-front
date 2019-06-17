@@ -45,7 +45,6 @@
         ACOMMENT: '',
         CREATETIME: '',
         TAG: '',
-        editor: null,
         editorContent: '',
         BODYPART: '',
         USERNAME:'',

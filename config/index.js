@@ -3,6 +3,7 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 
 const path = require('path')
+var deployPath = 'E:\\winning\\teamshare-backend\\src\\main\\resources\\static'
 
 module.exports = {
   dev: {
@@ -44,19 +45,25 @@ module.exports = {
   },
 
   build: {
-    // Template for index.html
-    index: path.resolve(__dirname, '../dist/index.html'),
-
-    // Paths
-    assetsRoot: path.resolve(__dirname, '../dist'),
+    env: require('./prod.env'),
+    index: deployPath + '/index.html',
+    assetsRoot: deployPath,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
+    productionSourceMap: false,
+    // Template for index.html
+    //index: path.resolve(__dirname, '../dist/index.html'),
+
+    // Paths
+    //assetsRoot: path.resolve(__dirname, '../dist'),
+    //assetsSubDirectory: 'static',
+    //assetsPublicPath: '/',
 
     /**
      * Source Maps
      */
 
-    productionSourceMap: true,
+    //productionSourceMap: true,
     // https://webpack.js.org/configuration/devtool/#production
     devtool: '#source-map',
 

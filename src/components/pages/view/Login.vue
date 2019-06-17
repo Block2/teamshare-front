@@ -105,7 +105,7 @@
   .teamshare{
     width:100%;
     height:100vh;
-    background-image: url('/static/img/background-img.jpg');
+    background-image: url('../../../assets/img/background-img.jpg');
     background-size: cover;
   }
 
