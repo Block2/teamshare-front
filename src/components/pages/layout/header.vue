@@ -6,7 +6,6 @@
       </div>
       <div class="inline-block cursor-p ml20 mr20 header-nav" v-for="(module,index) in modules" :class="{activeModule:activeModuleIndex == index}" @click="moduleRouter(index,module)">{{module.TMNAME}}</div>
       <div class="inline-block header-right">
-        <!--<img style="width: 29px;" src="../../../assets/img/user.png" alt="loginOut"/>-->
         <img style="width: 29px;" src="../../../assets/img/user.png" alt="loginOut"/>
         <span>{{USERNAME}}</span>
           <div class="inline-block loginOutIcon">

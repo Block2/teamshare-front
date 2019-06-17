@@ -49,7 +49,7 @@ module.exports = {
     index: deployPath + '/index.html',
     assetsRoot: deployPath,
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: './',
     productionSourceMap: false,
     // Template for index.html
     //index: path.resolve(__dirname, '../dist/index.html'),
