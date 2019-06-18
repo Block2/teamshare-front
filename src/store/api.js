@@ -18,7 +18,7 @@ import {Loading} from 'element-ui'
 // 设置跨域带鉴权支持
 axios.defaults.withCredentials = true;
 //是否进行本地调试
-const debugMod = true;
+const debugMod = false;
 //是否启动单点登陆
 const jwt = false;
 //是否进行通信加密
