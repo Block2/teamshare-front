@@ -19,6 +19,7 @@
 
   import tmodule from '@/store/module/api'
   import common from '@/store/common/api'
+  import storage from '@/resource/script/localStorageUtil'
 
   export default {
     data() {
@@ -62,6 +63,7 @@
       },
 
       loginOut(){
+        storage.removeTypeItem('userInfo');
         this.$router.push({name:'login'});
       },
 

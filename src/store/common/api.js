@@ -26,7 +26,7 @@ export default {
 
   getAndValidateUser(){
     var userInfo = storage.getItem("userInfo");
-    if(userInfo&&userInfo.loginName){
+    if(typeof(userInfo) == 'undefined' || userInfo.loginName == ''){
       return null;
     }
     this.getUserInfoByUserId({
