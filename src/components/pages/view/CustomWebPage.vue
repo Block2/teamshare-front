@@ -56,7 +56,7 @@
 
   .frameOuter{
     width:calc(100vw - 280px);
-    height:calc(100vh - 120px);
+    height:calc(100vh - 80px);
   }
 
   .frame{
