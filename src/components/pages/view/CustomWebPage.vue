@@ -1,6 +1,8 @@
 <template>
-  <iframe id="framePage" class="frame">
+  <div  class="frameOuter">
+  <iframe id="framePage" class="frame"  frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes">
   </iframe>
+  </div>
 </template>
 
 <script>
@@ -51,9 +53,14 @@
 </script>
 
 <style scoped>
-.frame{
-  width:100%;
-  height:100vh;
-  overflow:auto;
-}
+
+  .frameOuter{
+    width:calc(100vw - 280px);
+    height:calc(100vh - 120px);
+  }
+
+  .frame{
+    width:100%;
+    height:100%;
+  }
 </style>
